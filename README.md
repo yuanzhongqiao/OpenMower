@@ -1,165 +1,86 @@
-# OpenMower - The DIY Smart Mowing Robot for Everyone
-
-![OpenMower the DIY smart robot mower](./img/open_mower_header.jpg)[![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/) [![Discord](https://badgen.net/badge/icon/discord?icon=discord&label)](https://discord.gg/jE7QNaSxW7)
-
-# Join the Discord server for OpenMower discussion: [HERE](https://discord.gg/jE7QNaSxW7)
-
-
-
-*:warning: DISCLAIMER:**
-
-**IF YOU ARE NOT 100% SURE WHAT YOU ARE DOING, PLEASE DON'T TRY THIS AT HOME! ASK IN [DISCORD](https://discord.gg/jE7QNaSxW7), IF YOU HAVE ANY QUESTIONS!**
-
-# This project is active!
-This is the hardware repository, so it might seem that the project is inactive, since hardware is pretty stable by now.
-Most of the development work is done on the ROS code here: https://github.com/ClemensElflein/open_mower_ros
-
-
-# About the Project
-
-If you want to see a quick overview, you can check out this video:
-
-<a href="https://www.youtube.com/watch?v=BSF04i3zNGw" target="_blank"><img src="https://user-images.githubusercontent.com/2864655/161540069-f4263fa7-a47b-49d2-a7bc-d1cdc3a47704.jpg" /></a>
-
-
-
-Let's be honest: The current generation of robotic lawn mowers sucks. Basically all of these bots drive in a random direction until they hit the border of the lawn, rotate for a randomized duration and repeat. **I think we can do better!**
-
-
-Therefore, we have disassembled the cheapest off-the-shelf robotic mower  we could find (YardForce Classic 500) and were surprised that the hardware itself is actually quite decent:
-- Geared sensored brushless motors for the wheels
-- A sensored brushless motor for the mower motor itself
-- The whole construction seems robust, waterproof and all in all thought through
-- All components are connected using standard connectors, therefore upgrading the hardware is easily possible.
-
-The bottom line is: The bot itself is surprisingly high quality and doesn't need to be changed at all. **We just need some better software in there**.
-
-
-
-## Project Goals
-
-Here is a quick overview of this project's goals:
-
-:heavy_check_mark: **Autonomous Lawn Mowing:** Obviously, the device should be able to mow the lawn automatically.
-
-:heavy_check_mark: **Good Safety:** The device must be safe, e.g. emergency stop if lifted or crashed.
-
-:heavy_check_mark: **No Perimeter Wire Needed:** We want to be flexible and support multiple mowing areas.
-
-:heavy_check_mark: **Low Cost:** It should be cheaper than a mid range off-the-shelf product
-
-:heavy_check_mark: **Open:** I want to share knowledge and enable others to build an OpenMower as well.
-
-:heavy_check_mark: **Nice to Look At:** You should not be ashamed to have an OpenMower mowing your lawn.
-
-:heavy_check_mark: **Avoid Obstacles:** The mower should detect obstacles and avoid them during mowing.
-
-:heavy_check_mark: **Rain Detection:** The device should be able to detect bad weather conditions and pause mowing until they improve.
-
-
-
-# Open Mower App
-
-![Open Mower App 1](./img/open_mower_app_1.jpg)
-
-![Open Mower App 2](./img/open_mower_app_2.jpg)
-
-
-
-## Current State
-
-The basic mowing function finally works! As you can see in the video, map teaching and mowing work as expected. It even returns to the docking station automatically as soon as the battery gets low and continues once it's recharged.
-
-At this point I can recommend that brave tech savvy users can build one for themselves! Since it's quite an expensive and complex project, please don't be shy and ask if you have any questions. I'm glad to help 🙂
-
-
-
-### Hardware
-
-By now we have a stable revision of the mainboard as well as two motor controllers to go with it. The [xESC mini](https://github.com/clemensElflein/xesc) and the [xESC 2040](https://github.com/clemensElflein/xesc2040). I'm currently using the xESC mini for my builds and it works very well. The problem with this controller is, its parts are currently hard to source. That's why we created the xESC 2040 based on the RP2040 chip. This is the low-cost variant and its support is currently experimental.
-
-#### Hardware To-Do:
-
-- [x] Low Level Firmware Implementation
-  - [x] Voltage / Current Sense
-  - [x] Emergency Stop Button tracking
-  - [x] IMU Communication
-  - [x] Rain Sensor
-  - [x] Charging State
-  - [x] Sound Module
-  - [x] UI Board Communication
-  - [ ] Discharge current for more accurate battery charge estimation
-- [X] ROS Hardware Interface
-
-
-
-### Software
-
-The basic software is basically done; Our prototype works as intended (but is not able to avoid obstacles yet).
-
-The software for the robot can be found in a separate repository: https://github.com/ClemensElflein/open_mower_ros
-
-#### Software To-Do:
-
-- [x] Mowing State Machine (Docking / Mowing, ...)
-- [x] Path Planning
-- [ ] Obstacle Avoidance
-- [x] App / Visualization
-
-
-
-## Getting Started
-
-If you want to read how to get started building a robot for yourself, check the [OpenMower Website](https://openmower.de). There you can find information on which parts to buy, how to install the software and so on. If you find anything missing, please join the Discord server and ask there. Also there's the [OpenMower Wiki](https://wiki.openmower.de) which is written by the community. It has some additional guides and information.
-
-
-
-# How You Can Help
-
-You can help by starting an OpenMower build of your own. This helps to validate the concept and helps to create useful documentation for new users.
-
-Additionally, you can help by starring 🌟 and watching 👀 this repository, since it will help with visibility. You can also subscribe to my [YouTube channel](https://youtube.com/c/ClemensElflein).
-
-
-
-## Compatible Robotic Mowers
-
-While disassembling the bot, I wondered about its mainboard: Instead of "YardForce" it read "GForce". After checking the internet for "GForce" robots, I found that that very similar looking robotic mowers are sold under the Herkules brand. Naturally I tried to dig deeper and actually found evidence that the mainboard is manufactured by some chinese company (SUMEC Hardware).
-
-
-
-![GForce Robot Mower Mainboard](./img/mainboard.jpg)
-
-
-
-It is therefore quite safe to assume that many robot mowers are basically the same device in a different case. This would be a huge win for the community, since this would mean that by making one of those robots smarter, we could upgrade lots of robots.
-
-Therefore it might be a good idea to start a list of compatible devices. So if you have a cheap robotic lawn mower, you can check, if it was already disassembled in the list below. If it's not there, it would be nice of you to check, if it contains the same mainboard as ours and add your robot to the list with some some pictures / model numbers.
-
-
-
-### List of Compatible Mowers
-
-By now, some guys have disassembled their mowers and it doesn't look as good as I initially hoped. The GForce boards are basically just used by YardForce and some rebranded versions for the EU market. My exact hardware was only found in the mower I'm using (YardForce Classic 500) and in recently manufactured SA650 ECOs. The SA650 has a different chassis and we don't have a way of mounting the GPS antenna yet. Therefore at the moment, the only compatible mower is mine (the YardForce Classic 500). 
-
-If you want to have a look at the disassembled mowers, check the Google Docs [here](https://docs.google.com/spreadsheets/d/1BX0-KEs5v-VED8-RA4BLE-wRdXHtlmcKy4n9K5vJVAA)
-
-
-
-# More Infos
-
-This page only contains the basic overview of the project. To follow my current development state, check out my [Blog](https://x-tech.online/).
-
-# Patents, Local Laws, Liability
-Before building a robot based on the designs published here, please make sure that you are allowed to do so in your specific regions.
-There may be patents and / or laws prohibiting you of doing so.
-
-The code/schematics/PCB files are distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-
-This basically means: I'm just documenting a project of mine here for free and I don't have the time and resources to check that devices built using this information will be safe to use, legal to use or even work as intended. You will need technical know-how to use this project and I'm not liable for any damages your devices do to anyone or anything.
-
-# License
-
-<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
-
-Feel free to use the design in your private/educational projects, but don't try to sell the design or products based on it without getting my consent first. The idea here is to share knowledge, not to enable others to simply sell my work. Thank you for understanding.
+<div class="Box-sc-g0xbh4-0 bJMeLZ js-snippet-clipboard-copy-unpositioned" data-hpc="true"><article class="markdown-body entry-content container-lg" itemprop="text"><h1 tabindex="-1" dir="auto"><a id="user-content-openmower---the-diy-smart-mowing-robot-for-everyone" class="anchor" aria-hidden="true" tabindex="-1" href="#openmower---the-diy-smart-mowing-robot-for-everyone"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">OpenMower - 适合所有人的 DIY 智能割草机器人</font></font></h1>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="/ClemensElflein/OpenMower/blob/main/img/open_mower_header.jpg"><img src="/ClemensElflein/OpenMower/raw/main/img/open_mower_header.jpg" alt="OpenMower DIY 智能割草机器人" style="max-width: 100%;"></a><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="nofollow"><img src="https://camo.githubusercontent.com/5254836b4c2097cdf9b882f21a089aa7c06f73b990d36efb5dac7ac41cd764cd/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c6963656e73652d434325323042592d2d4e432d2d5341253230342e302d6c69676874677265792e737667" alt="许可证：CC BY-NC-SA 4.0" data-canonical-src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg" style="max-width: 100%;"></a> <a href="https://discord.gg/jE7QNaSxW7" rel="nofollow"><img src="https://camo.githubusercontent.com/089fd617c6338d1dbc284d19242b8755d1b6fdacfc76ab591f220e8a64df3f7f/68747470733a2f2f62616467656e2e6e65742f62616467652f69636f6e2f646973636f72643f69636f6e3d646973636f7264266c6162656c" alt="不和谐" data-canonical-src="https://badgen.net/badge/icon/discord?icon=discord&amp;label" style="max-width: 100%;"></a></p>
+<h1 tabindex="-1" dir="auto"><a id="user-content-join-the-discord-server-for-openmower-discussion-here" class="anchor" aria-hidden="true" tabindex="-1" href="#join-the-discord-server-for-openmower-discussion-here"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">加入 Discord 服务器进行 OpenMower 讨论：</font></font><a href="https://discord.gg/jE7QNaSxW7" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">此处</font></font></a></h1>
+<p dir="auto"><em><g-emoji class="g-emoji" alias="warning"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">⚠️</font></font></g-emoji><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">免责声明：</font></font></em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> *</font></font></p>
+<p dir="auto"><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">如果您不能 100% 确定自己在做什么，请不要在家尝试！</font><font style="vertical-align: inherit;">如果您有任何问题，请在</font></font><a href="https://discord.gg/jE7QNaSxW7" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">DISCORD</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">中提问！</font></font></strong></p>
+<h1 tabindex="-1" dir="auto"><a id="user-content-this-project-is-active" class="anchor" aria-hidden="true" tabindex="-1" href="#this-project-is-active"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">该项目已启动！</font></font></h1>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">这是硬件存储库，因此该项目似乎处于非活动状态，因为硬件现在相当稳定。</font><font style="vertical-align: inherit;">大部分开发工作都是在 ROS 代码上完成的： https: </font></font><a href="https://github.com/ClemensElflein/open_mower_ros"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">//github.com/ClemensElflein/open_mower_ros</font></font></a></p>
+<h1 tabindex="-1" dir="auto"><a id="user-content-about-the-project" class="anchor" aria-hidden="true" tabindex="-1" href="#about-the-project"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">关于该项目</font></font></h1>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">如果您想快速了解，可以观看此视频：</font></font></p>
+<p dir="auto"><a href="https://www.youtube.com/watch?v=BSF04i3zNGw" rel="nofollow"><img src="https://user-images.githubusercontent.com/2864655/161540069-f4263fa7-a47b-49d2-a7bc-d1cdc3a47704.jpg" style="max-width: 100%;"></a></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">说实话：当前一代的机器人割草机很糟糕。</font><font style="vertical-align: inherit;">基本上所有这些机器人都会沿着随机方向行驶，直到到达草坪边缘，旋转随机的持续时间并重复。</font></font><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">我想我们可以做得更好！</font></font></strong></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">因此，我们拆解了我们能找到的最便宜的现成机器人割草机（YardForce Classic 500），并惊讶地发现硬件本身相当不错：</font></font></p>
+<ul dir="auto">
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">用于车轮的齿轮感应无刷电机</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">用于割草机电机本身的感应无刷电机</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">整个结构看起来坚固、防水并且经过深思熟虑</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">所有组件均使用标准连接器连接，因此可以轻松升级硬件。</font></font></li>
+</ul>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">底线是：机器人本身的质量出奇地高，根本不需要改变。</font></font><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">我们只是需要一些更好的软件</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font></font></p>
+<h2 tabindex="-1" dir="auto"><a id="user-content-project-goals" class="anchor" aria-hidden="true" tabindex="-1" href="#project-goals"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">项目目标</font></font></h2>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">以下是该项目目标的快速概述：</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">✔️</font></font><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">自主割草：</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">显然，该设备应该能够自动割草。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">✔️</font></font><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">良好的安全性：</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">设备必须安全，例如在抬起或碰撞时紧急停止。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">✔️</font></font><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">不需要周边电线：</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">我们希望灵活并支持多个割草区域。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">✔️</font></font><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">低成本：</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">应该比中档现成产品便宜</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">✔️</font></font><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">开放：</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">我想分享知识并让其他人也能够构建 OpenMower。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">✔️</font></font><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">美观：</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">您不应该为使用 OpenMower 修剪草坪而感到羞耻。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">✔️</font></font><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">避开障碍物：</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">割草机在割草过程中应检测障碍物并避开它们。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">✔️</font></font><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">雨水检测：</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">设备应该能够检测恶劣的天气条件并暂停割草，直到情况改善。</font></font></p>
+<h1 tabindex="-1" dir="auto"><a id="user-content-open-mower-app" class="anchor" aria-hidden="true" tabindex="-1" href="#open-mower-app"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">打开割草机应用程序</font></font></h1>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="/ClemensElflein/OpenMower/blob/main/img/open_mower_app_1.jpg"><img src="/ClemensElflein/OpenMower/raw/main/img/open_mower_app_1.jpg" alt="打开割草机应用程序 1" style="max-width: 100%;"></a></p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="/ClemensElflein/OpenMower/blob/main/img/open_mower_app_2.jpg"><img src="/ClemensElflein/OpenMower/raw/main/img/open_mower_app_2.jpg" alt="打开割草机应用程序 2" style="max-width: 100%;"></a></p>
+<h2 tabindex="-1" dir="auto"><a id="user-content-current-state" class="anchor" aria-hidden="true" tabindex="-1" href="#current-state"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">当前状态</font></font></h2>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">基本的割草功能终于可以使用了！</font><font style="vertical-align: inherit;">正如您在视频中看到的，地图教学和割草工作按预期进行。</font><font style="vertical-align: inherit;">一旦电池电量不足，它甚至会自动返回坞站，并在充电后继续工作。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">在这一点上，我建议勇敢的、精通技术的用户可以为自己构建一个！</font><font style="vertical-align: inherit;">由于这是一个相当昂贵且复杂的项目，如果您有任何问题，请不要害羞并询问。</font><font style="vertical-align: inherit;">我很高兴能提供帮助 回复</font></font></p>
+<h3 tabindex="-1" dir="auto"><a id="user-content-hardware" class="anchor" aria-hidden="true" tabindex="-1" href="#hardware"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">硬件</font></font></h3>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">到目前为止，我们已经有了主板的稳定版本以及两个与之配套的电机控制器。</font><font style="vertical-align: inherit;">xESC </font></font><a href="https://github.com/clemensElflein/xesc"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">mini</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">和</font></font><a href="https://github.com/clemensElflein/xesc2040"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">xESC 2040</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font><font style="vertical-align: inherit;">我目前正在使用 xESC mini 进行构建，效果非常好。</font><font style="vertical-align: inherit;">该控制器的问题是，目前很难找到其零件。</font><font style="vertical-align: inherit;">这就是我们基于 RP2040 芯片创建 xESC 2040 的原因。</font><font style="vertical-align: inherit;">这是低成本变体，其支持目前处于实验阶段。</font></font></p>
+<h4 tabindex="-1" dir="auto"><a id="user-content-hardware-to-do" class="anchor" aria-hidden="true" tabindex="-1" href="#hardware-to-do"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">硬件待办事项：</font></font></h4>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">低级固件实现
+</font></font><ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">电压/电流检测</font></font></li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">紧急停止按钮跟踪</font></font></li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">IMU通讯</font></font></li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">雨量传感器</font></font></li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">充电状态</font></font></li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">声音模块</font></font></li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">UI板通讯</font></font></li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">放电电流可实现更准确的电池电量估算</font></font></li>
+</ul>
+</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">ROS硬件接口</font></font></li>
+</ul>
+<h3 tabindex="-1" dir="auto"><a id="user-content-software" class="anchor" aria-hidden="true" tabindex="-1" href="#software"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">软件</font></font></h3>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">基础软件基本完成；</font><font style="vertical-align: inherit;">我们的原型按预期工作（但还无法避开障碍）。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">机器人的软件可以在单独的存储库中找到：</font></font><a href="https://github.com/ClemensElflein/open_mower_ros"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">https://github.com/ClemensElflein/open_mower_ros</font></font></a></p>
+<h4 tabindex="-1" dir="auto"><a id="user-content-software-to-do" class="anchor" aria-hidden="true" tabindex="-1" href="#software-to-do"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">软件待办事项：</font></font></h4>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">割草状态机（对接/割草，...）</font></font></li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">路径规划</font></font></li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">避障</font></font></li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">应用程序/可视化</font></font></li>
+</ul>
+<h2 tabindex="-1" dir="auto"><a id="user-content-getting-started" class="anchor" aria-hidden="true" tabindex="-1" href="#getting-started"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">入门</font></font></h2>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">如果您想了解如何开始为自己构建机器人，请查看</font></font><a href="https://openmower.de" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">OpenMower 网站</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font><font style="vertical-align: inherit;">在那里您可以找到有关购买哪些部件、如何安装软件等信息。</font><font style="vertical-align: inherit;">如果您发现缺少任何内容，请加入 Discord 服务器并在那里提问。</font><font style="vertical-align: inherit;">还有</font><font style="vertical-align: inherit;">由社区编写的</font></font><a href="https://wiki.openmower.de" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">OpenMower Wiki 。</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">它有一些额外的指南和信息。</font></font></p>
+<h1 tabindex="-1" dir="auto"><a id="user-content-how-you-can-help" class="anchor" aria-hidden="true" tabindex="-1" href="#how-you-can-help"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">您可以如何提供帮助</font></font></h1>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">您可以通过启动自己的 OpenMower 构建来提供帮助。</font><font style="vertical-align: inherit;">这有助于验证概念并有助于为新用户创建有用的文档。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">此外，您可以通过加注星标 🌟 并观看 👀 此存储库来提供帮助，因为这将有助于提高可见性。</font><font style="vertical-align: inherit;">您还可以订阅我的</font></font><a href="https://youtube.com/c/ClemensElflein" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">YouTube 频道</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font></font></p>
+<h2 tabindex="-1" dir="auto"><a id="user-content-compatible-robotic-mowers" class="anchor" aria-hidden="true" tabindex="-1" href="#compatible-robotic-mowers"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">兼容的机器人割草机</font></font></h2>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">在拆卸机器人时，我对它的主板感到好奇：它不是“YardForce”，而是“GForce”。</font><font style="vertical-align: inherit;">在互联网上查找“GForce”机器人后，我发现外观非常相似的机器人割草机以 Herkules 品牌出售。</font><font style="vertical-align: inherit;">当然，我试图深入挖掘，并确实发现了主板是由某家中国公司（苏美达硬件）制造的证据。</font></font></p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="/ClemensElflein/OpenMower/blob/main/img/mainboard.jpg"><img src="/ClemensElflein/OpenMower/raw/main/img/mainboard.jpg" alt="GForce 机器人割草机主板" style="max-width: 100%;"></a></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">因此，可以非常安全地假设许多机器人割草机在不同情况下基本上是相同的设备。</font><font style="vertical-align: inherit;">这对社区来说将是一个巨大的胜利，因为这意味着通过使其中一个机器人变得更聪明，我们可以升级许多机器人。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">因此，启动兼容设备列表可能是个好主意。</font><font style="vertical-align: inherit;">因此，如果您有一台便宜的机器人割草机，您可以在下面的列表中检查它是否已被拆卸。</font><font style="vertical-align: inherit;">如果不存在，您最好检查一下它是否包含与我们相同的主板，并将您的机器人添加到列表中，并附上一些图片/型号。</font></font></p>
+<h3 tabindex="-1" dir="auto"><a id="user-content-list-of-compatible-mowers" class="anchor" aria-hidden="true" tabindex="-1" href="#list-of-compatible-mowers"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">兼容割草机列表</font></font></h3>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">到目前为止，一些人已经拆解了他们的割草机，但它看起来并不像我最初希望的那么好。</font><font style="vertical-align: inherit;">GForce 板基本上仅由 YardForce 和一些针对欧盟市场的重新命名版本使用。</font><font style="vertical-align: inherit;">我的确切硬件仅在我使用的割草机 (YardForce Classic 500) 和最近制造的 SA650 ECO 中找到。</font><font style="vertical-align: inherit;">SA650 有不同的底盘，我们还没有安装 GPS 天线的方法。</font><font style="vertical-align: inherit;">因此，目前唯一兼容的割草机是我的（YardForce Classic 500）。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">如果您想查看拆解后的割草机，请查看</font></font><a href="https://docs.google.com/spreadsheets/d/1BX0-KEs5v-VED8-RA4BLE-wRdXHtlmcKy4n9K5vJVAA" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">此处的Google 文档</font></font></a></p>
+<h1 tabindex="-1" dir="auto"><a id="user-content-more-infos" class="anchor" aria-hidden="true" tabindex="-1" href="#more-infos"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">更多信息</font></font></h1>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">此页面仅包含项目的基本概述。</font><font style="vertical-align: inherit;">要了解我当前的开发状态，请查看我的</font></font><a href="https://x-tech.online/" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">博客</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font></font></p>
+<h1 tabindex="-1" dir="auto"><a id="user-content-patents-local-laws-liability" class="anchor" aria-hidden="true" tabindex="-1" href="#patents-local-laws-liability"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">专利、当地法律、责任</font></font></h1>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">在根据此处发布的设计构建机器人之前，请确保您可以在您的特定区域这样做。</font><font style="vertical-align: inherit;">可能有专利和/或法律禁止您这样做。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">分发代码/原理图/PCB 文件是希望它有用，但不提供任何保证；</font><font style="vertical-align: inherit;">甚至没有适销性或特定用途适用性的默示保证。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">这基本上意味着：我只是在这里免费记录我的一个项目，我没有时间和资源来检查使用这些信息构建的设备是否可以安全使用、合法使用甚至按预期工作。</font><font style="vertical-align: inherit;">您将需要技术知识才能使用此项目，并且我对您的设备对任何人或任何事物造成的任何损害不承担任何责任。</font></font></p>
+<h1 tabindex="-1" dir="auto"><a id="user-content-license" class="anchor" aria-hidden="true" tabindex="-1" href="#license"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">执照</font></font></h1>
+<p dir="auto"><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" rel="nofollow"><img alt="知识共享许可" src="https://camo.githubusercontent.com/394c08dc4b8a47e0c6eaecef98132816cccc0bf446259bde1911462f4d6f5a91/68747470733a2f2f692e6372656174697665636f6d6d6f6e732e6f72672f6c2f62792d6e632d73612f342e302f38387833312e706e67" data-canonical-src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" style="max-width: 100%;"></a><br><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">本作品根据</font></font><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">获得许可。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">您可以随意在您的私人/教育项目中使用该设计，但未经我同意，请勿尝试出售该设计或基于该设计的产品。</font><font style="vertical-align: inherit;">这里的想法是分享知识，而不是让其他人简单地出售我的作品。</font><font style="vertical-align: inherit;">谢谢你的理解。</font></font></p>
+</article></div>
